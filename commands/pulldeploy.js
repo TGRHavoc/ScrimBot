@@ -19,6 +19,9 @@
 
                 reset.on("close", function (code) {
                     bot.updateMessage(sentMsg, "Shutting down... I've been updated");
+                    bot.logout(function (){
+                        process.exit(1);
+                    })
                 });
             });
 
