@@ -1,10 +1,29 @@
 {
-  "name": "ScrimSpace-Discord-bot",
-  "version": "0.0.0",
+  "name": "ScrimBot",
+  "version": "0.0.1",
   "description": "ScrimSpace Discord bot",
   "main": "app.js",
+  
   "author": {
-    "name": "Jordan",
-    "email": ""
+    "name": "Jordan Dalton",
+    "email": "jordan.8474@gmail.com",
+    "url": "https://hades.space:1337"
+  },
+  
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TGRHavoc/ScrimBot"
+  },
+
+  "contributors": [
+    {
+      "name": "Andrew",
+      "email": "contact@nothing.co.uk",
+      "url": "https://oc.tc/Pugzy"
+    }
+  ],
+  
+  "dependencies": {
+    "discord.js": "^6.0.0"
   }
 }
