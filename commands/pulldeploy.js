@@ -1,6 +1,14 @@
-﻿var pullDeployCommand = {
+var userUtil = require("../utils/user.js");
+
+var pullDeployCommand = {
     description: "Fetch code from github and stop the bot",
     process: function (bot, msg, args) {
+
+      if(!( userUtil.isAdmin( bot.servers[0], msg.author ) )){
+        bot.sendMessage(msg.channel, "You cannot control me!");
+        return;
+      }
+
       bot.sendMessage(msg.channel,"Updating...",function(error,sentMsg){
             console.log("updating...");
             var spawn = require('child_process').spawn;
