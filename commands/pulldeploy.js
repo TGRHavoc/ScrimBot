@@ -10,7 +10,7 @@
             });
 
             fetch.on("close", function (code) {
-                var reset = spawn('git', ['checkout', 'origin/master']); //Merge local with origin
+                var reset = spawn('git', ['rebase', 'origin/master']); //Merge local with origin
                 console.log("Restarting..");
 
                 reset.stdout.on('data', function (data) {
