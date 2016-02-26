@@ -64,6 +64,16 @@ bot.on("message", function (msg) {
                 }
             });
             return;
+        } else {
+            if (cmdText in commands) {
+                try {
+                    commands[cmdText].process(bot, msg, arguments);
+                } catch (e) {
+                    bot.sendMessage(msg.channel, "Error occured when executing command '" + cmdText + "': " + e.stack);
+                }
+            } else {
+                bot.sendMessage(msg.channel, "Sorry, that command don't exist");
+            }
         }
 
     }
