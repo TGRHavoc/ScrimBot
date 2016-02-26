@@ -57,4 +57,5 @@ Before you send a pull request, please make sure you have read the following:
   * Send a pull request to the main repo (https://github.com/TGRHavoc/ScrimBot) from the branch you created
   * Make sure the pull request clearly explains what you have done and why it was implemented
 
-* Author: Jordan Dalton (2016) *
+
+*Author: Jordan Dalton (2016)*
