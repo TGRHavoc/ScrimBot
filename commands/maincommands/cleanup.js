@@ -1,4 +1,4 @@
-var util = require("../utils/user.js");
+var util = require("../../utils/user.js");
 
 var cleanCommand = {
   description: "Clean up the channel's chat",

@@ -1,5 +1,5 @@
 {
-  "name": "SCRIMBOT",
+  "name": "ScrimBot",
   "version": "0.0.1",
   "description": "ScrimSpace Discord bot",
   "main": "app.js",

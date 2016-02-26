@@ -1,4 +1,4 @@
-var userUtil = require("../utils/user.js");
+var userUtil = require("../../utils/user.js");
 
 var pullDeployCommand = {
     description: "Fetch code from github and stop the bot",

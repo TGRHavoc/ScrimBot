@@ -1,4 +1,4 @@
-var usrUtils = require("../utils/user.js");
+var usrUtils = require("../../utils/user.js");
 
 var kysCommand = {
   usage: "",
