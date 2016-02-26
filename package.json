@@ -1,0 +1,10 @@
+{
+  "name": "ScrimSpace-Discord-bot",
+  "version": "0.0.0",
+  "description": "ScrimSpace Discord bot",
+  "main": "app.js",
+  "author": {
+    "name": "Jordan",
+    "email": ""
+  }
+}
