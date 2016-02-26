@@ -6,7 +6,7 @@ ScrimBot is a Bot created for ScrimSpaces' Discord channel to help automate mund
 * Here should be a list of features for the bot
 
 # Commands
-Commands are listed below. And follow the format of !<base> <command> <args>. E.g. !team create TeamName
+Commands are listed below. And follow the format of `!<base> <command> <args>`. E.g. `!team create TeamName`
 
 ### Base commands
 | Base | Desc. |
