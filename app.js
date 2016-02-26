@@ -33,7 +33,7 @@ bot.on("disconnected", function () {
 });
 
 bot.on("message", function (msg) {
-    if (msg.author.id != bot.user.id && (msg.content[0] === '!' || msg.content.indexOf(bot.user.mention()) == 0)) { //If it's not the bot speaking, and message starts with ! or @ScrimBot
+    if (msg.author.id != bot.user.id && (msg.content[0] === '!' || msg.content[0] === '/' || msg.content.indexOf(bot.user.mention()) == 0)) { //If it's not the bot speaking, and message starts with ! or @ScrimBot
         console.log("Treating message from " + msg.author + " as command");
 
         var cmdText = msg.content.split(" ")[0].substring(1); //Remove that pesky !
