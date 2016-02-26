@@ -9,7 +9,7 @@ var bot = new Discord.Client();
 
 
 bot.on("ready", function () {
-    console.log("Ready to serve! Currently " + bot.channels.length + " channels!");
+    console.log("\nReady to serve! Currently " + bot.channels.length + " channels!");
 });
 
 bot.on("disconnected", function () {
@@ -25,12 +25,17 @@ bot.on("message", function (msg) {
         var arguments = msg.content.substring(cmdText.length + 2); //Adding 2 for ! and the space
 
         if (msg.content.indexOf(bot.user.mention()) == 0) {
-            bot.sendMessage(msg.channel, "Sorry, this feature isn't implemented yet");
-            return;
+            try {
+                cmdText = msg.content.split(" ")[1];
+                arguments = msg.content.substring(bot.user.mention().length + cmdText.length + 2);
+            } catch (e) { //no command
+                bot.sendMessage(msg.channel, "Yes?");
+                return;
+            }
         }
-
-        if (cmdText == "help") {
-            bot.sendMessage(msg.channel, "Available commands:", function () {
+        cmdText = cmdText.toLowerCase();
+        if (cmdText === "help") {
+            bot.sendMessage(msg.channel, "**Available commands:**", function () {
                 for (cmd in commands) {
                     var info = "!" + cmd;
                     var usage = commands[cmd].usage;
