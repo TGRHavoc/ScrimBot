@@ -2,12 +2,15 @@
     config = require("./config"),
     Discord = require("discord.js");
 
-function loadCommands(){
+function loadCommands(dir){
     var fs = require("fs");
-    fs.readdirSync("./commands").forEach(function (filename) {
-
+    fs.readdirSync(dir).forEach(function (filename) {
+      var filepath = dir + filename;
+      if ( fs.statSync(filepath).isDirectory() ){
+        loadCommands(filepath + "/");
+      }else{
         if (filename.split(".").pop() == "js") {
-            var filepath = "./commands/" + filename;
+
             var commandName = filename.split(".")[filename.split(".").length - 2];
 
             if (commandName in commands) {
@@ -16,14 +19,14 @@ function loadCommands(){
             }
             commands[commandName] = require(filepath);
         }
+      }
     });
 };
-
 
 var bot = new Discord.Client();
 
 bot.on("ready", function () {
-    loadCommands();
+    loadCommands("./commands/");
     console.log("\nReady to serve! Currently " + bot.channels.length + " channels!");
 });
 
