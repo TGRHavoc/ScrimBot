@@ -1,5 +1,7 @@
 ﻿var commands = { },
     config = require("./config"),
+    cleaverbot =  require('./modules/cleverbot.js'),
+
     Discord = require("discord.js");
 
 if (!String.prototype.format) {
@@ -66,6 +68,7 @@ bot.on("message", function (msg) {
             }
         }
         cmdText = cmdText.toLowerCase();
+        var cmd = commands[cmdText];
         if (cmdText === "help") {
             bot.sendMessage(msg.channel, "**Available commands:**", function () {
                 for (cmd in commands) {
@@ -81,7 +84,7 @@ bot.on("message", function (msg) {
                 }
             });
             return;
-        } else {
+        } else if(cmd) {
             if (cmdText in commands) {
                 try {
                     commands[cmdText].process(bot, msg, arguments);
@@ -91,8 +94,16 @@ bot.on("message", function (msg) {
             } else {
                 bot.sendMessage(msg.channel, "Sorry, that command don't exist");
             }
+        }else{
+          //Not supplied a command
+          if(msg.author == bot.user){
+              return;
+          }
+          if (msg.isMentioned(bot.user)){
+            //Talk to them!
+            cleaverbot.chat(bot, msg, arguments);
+          }
         }
-
     }
 });
 

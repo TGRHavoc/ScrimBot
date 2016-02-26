@@ -11,7 +11,7 @@ function getFormattedString(){
       var c = packageInfo.contributors[i];
       toFormat += "\t{name} ({email})\n".format({name: c.name, email: c.email});
   }
-
+  
   return toFormat.format({name: packageInfo.name, version: packageInfo.version});
 }
 
