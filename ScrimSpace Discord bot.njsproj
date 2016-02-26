@@ -32,7 +32,6 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="commands\help.js" />
-    <Compile Include="commands\index.js" />
     <Compile Include="config\index.js" />
     <Content Include="commands\.placeholder" />
     <Content Include="config\.placeholder" />

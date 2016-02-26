@@ -1,14 +1,29 @@
-﻿var commands = require("./commands"),
+﻿var commands = { },
     config = require("./config"),
     Discord = require("discord.js");
 
-//Get command: commands[base]
+function loadCommands(){
+    var fs = require("fs");
+    fs.readdirSync("./commands").forEach(function (filename) {
+
+        if (filename.split(".").pop() == "js") {
+            var filepath = "./commands/" + filename;
+            var commandName = filename.split(".")[filename.split(".").length - 2];
+
+            if (commandName in commands) {
+                console.log("Error, command '" + commandName + "' already exists");
+                return;
+            }
+            commands[commandName] = require(filepath);
+        }
+    });
+};
 
 
 var bot = new Discord.Client();
 
-
 bot.on("ready", function () {
+    loadCommands();
     console.log("\nReady to serve! Currently " + bot.channels.length + " channels!");
 });
 
