@@ -4,29 +4,21 @@
         bot.sendMessage(msg.channel, "Updating..", function (err, sentMsg) {
             console.log("Updating...");
             var spawn = require("child_process").spawn;
-            var fetch = spawn("git", ["fetch"]);
+            var fetch = spawn("git", ["fetch", "origin", "origin/master"]);
             fetch.stdout.on("data", function (data) {
                 console.log("Recived: " + data);
             });
 
             fetch.on("close", function (code) {
-                var reset = spawn('git', ['merge', 'origin/master']); //Merge local with origin
+                var reset = spawn('git', ['checkout', 'origin/master']); //Merge local with origin
+                console.log("Restarting..");
+
                 reset.stdout.on('data', function (data) {
-                    console.log(data.toString());
+                    console.log("checkout Recieved:" + data.toString());
                 });
+
                 reset.on("close", function (code) {
-                    var npm = spawn('npm', ['install']);
-                    npm.stdout.on('data', function (data) {
-                        console.log(data.toString());
-                    });
-                    npm.on("close", function (code) {
-                        console.log("goodbye");
-                        bot.sendMessage(msg.channel, "brb!", function () {
-                            bot.logout(function () {
-                                process.exit();
-                            });
-                        });
-                    });
+                    bot.updateMessage(sentMsg, "Shutting down... I've been updated");
                 });
             });
 
