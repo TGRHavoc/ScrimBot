@@ -1,7 +1,5 @@
 ﻿var commands = { },
     config = require("./config"),
-    cleaverbot =  require('./modules/cleverbot.js'),
-
     Discord = require("discord.js");
 
 if (!String.prototype.format) {
@@ -99,10 +97,7 @@ bot.on("message", function (msg) {
           if(msg.author == bot.user){
               return;
           }
-          if (msg.isMentioned(bot.user)){
-            //Talk to them!
-            cleaverbot.chat(bot, msg, arguments);
-          }
+          bot.sendMessage(msg.channel, "Sorry, that command doesn't exist");
         }
     }
 });

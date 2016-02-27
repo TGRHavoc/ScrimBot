@@ -4,10 +4,15 @@ var cleverbot = require("cleverbot-node");
 talkbot = new cleverbot;
 cleverbot.prepare(function(){});
 
-
-module.exports.chat = function(bot, msg, message){
-    var convo = message.split(" ");
+var talkCommand = {
+  usage: "[message]",
+  description: "Talk directly to the bot",
+  process: function(bot, msg, args){
+    var convo = args.split(" ");
     talkbot.write(convo, function(response){
       bot.sendMessage(msg.channel, response.message);
     });
+  }
 };
+
+module.exports = talkCommand;
