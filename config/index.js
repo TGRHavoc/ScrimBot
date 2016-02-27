@@ -1,5 +1,6 @@
 ﻿var Config = {
-    auth: require("./auth.json") //This will return the object in the JSON file
+    auth: require("./auth.json"), //This will return the object in the JSON file
+	help: require('./help.json')
 };
 
 //Module.exports is what is returned when you do require("FILE.js").

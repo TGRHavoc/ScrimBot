@@ -1,5 +1,5 @@
 ﻿var helpCommand = {
-    usage: "",
+    usage: "[page number]",
     description: "Displays a helpful message about commands and stuff",
     process: function (bot, msg, arguments) {
     //Process the command here.

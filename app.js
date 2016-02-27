@@ -15,7 +15,15 @@ if (!String.prototype.format) {
     }
 }
 
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 
+var currentIndexOfCommand = 0;
 function loadCommands(dir){
     var fs = require("fs");
     fs.readdirSync(dir).forEach(function (filename) {
@@ -32,6 +40,7 @@ function loadCommands(dir){
                 return;
             }
             commands[commandName] = require(filepath);
+			commands[commandName].i = currentIndexOfCommand++; //Give each command an "index"
         }
       }
     });
@@ -68,17 +77,43 @@ bot.on("message", function (msg) {
         cmdText = cmdText.toLowerCase();
         var cmd = commands[cmdText];
         if (cmdText === "help") {
-            bot.sendMessage(msg.channel, "**Available commands:**", function () {
-                for (cmd in commands) {
-                    var info = "!" + cmd;
-                    var usage = commands[cmd].usage;
-                    if (usage && usage != "")
-                        info += " " + usage;
+			var args = arguments.split(" ");
+			var pageToShow = 1;
+			if (args[0]){ //They have supplied a page no.
+				if (isNaN(args[0])){
+					//Not given a number
+					bot.sendMessage(msg.channel, "Sorry, '" + args[0] + "' isn't a number!");
+					return;
+				}else{
+					pageToShow = parseInt(args[0]);
+				}
+			}
 
-                    var description = commands[cmd].description;
-                    if (description && description != "")
-                        info += "\n\t" + description;
-                    bot.sendMessage(msg.channel, info);
+			var maxPagesNo = Math.floor( ( (Object.size(commands) - 1) / config.help.messages_per_page) +1 );
+				start = (pageToShow - 1) * config.help.messages_per_page,
+				end = start + config.help.messages_per_page;
+
+			if (!(pageToShow >= start && pageToShow < end)){
+				bot.sendMessage(msg.channel, "Sorry that page doesn't exist.");
+				return;
+			}
+
+			var title = "**Available commands ( page _{current}_ of _{max}_ ):**".format( {current: pageToShow, max: maxPagesNo} );
+            bot.sendMessage(msg.channel, title, function () {
+                for (cmd in commands) {
+
+					if (commands[cmd].i >= start && commands[cmd].i < end){
+						var info = "!" + cmd;
+	                    var usage = commands[cmd].usage;
+	                    if (usage && usage != "")
+	                        info += " " + usage;
+
+	                    var description = commands[cmd].description;
+	                    if (description && description != "")
+	                        info += "\n\t" + description;
+	                    bot.sendMessage(msg.channel, info);
+					}
+
                 }
             });
             return;
