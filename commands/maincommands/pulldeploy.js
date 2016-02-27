@@ -28,10 +28,10 @@ var pullDeployCommand = {
                 reset.on("close",function(code){
                     console.log("goodbye");
 
-                    bot.updateMessage(sentMsg,"Brb, applying update:\n" + updates,function(){
+                    bot.updateMessage(sentMsg,"Applying update:\n" + updates,function(){
                       if (updates == "Already up-to-date.")
                         return;
-                      
+
                       bot.logout(function(){
                         process.exit();
                       });
