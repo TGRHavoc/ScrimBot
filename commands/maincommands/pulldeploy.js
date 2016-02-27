@@ -19,13 +19,15 @@ var pullDeployCommand = {
             });
 
             fetch.on("close",function(code){
-                var reset = spawn('git', ['reset','--hard','origin/master']);
+                var reset = spawn('git', ['merge', 'origin/master']);
+                var updates;
                 reset.stdout.on('data',function(data){
                     console.log(data.toString());
+                    updates = data;
                 });
                 reset.on("close",function(code){
                     console.log("goodbye");
-                    bot.updateMessage(sentMsg,"Brb!",function(){
+                    bot.updateMessage(sentMsg,"Brb, applying update:\n" + updates,function(){
                       bot.logout(function(){
                         process.exit();
                       });
