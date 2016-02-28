@@ -2,19 +2,6 @@
     config = require("./config"),
     Discord = require("discord.js");
 
-if (!String.prototype.format) {
-    String.prototype.format = function() {
-        var str = this.toString();
-        if (!arguments.length)
-            return str;
-        var args = typeof arguments[0],
-            args = (("string" == args || "number" == args) ? arguments : arguments[0]);
-        for (arg in args)
-            str = str.replace(RegExp("\\{" + arg + "\\}", "gi"), args[arg]);
-        return str;
-    }
-}
-
 Object.size = function(obj) {
     var size = 0, key;
     for (key in obj) {
@@ -94,11 +81,11 @@ bot.on("message", function (msg) {
 				end = start + config.help.messages_per_page;
 
 			if (!(pageToShow >= start && pageToShow < end)){
-				bot.sendMessage(msg.channel, "Sorry that page doesn't exist.");
+				bot.sendMessage(msg.channel, "Sorry that page doesn't exist!");
 				return;
 			}
 
-			var title = "**Available commands ( page _{current}_ of _{max}_ ):**".format( {current: pageToShow, max: maxPagesNo} );
+			var title = `**Available commands ( page _${pageToShow}_ of _${maxPagesNo}_ ):**`;
             bot.sendMessage(msg.channel, title, function () {
                 for (cmd in commands) {
 

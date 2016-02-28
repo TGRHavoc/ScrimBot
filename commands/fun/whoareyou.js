@@ -1,18 +1,18 @@
 var packageInfo = require("../../package.json");
 
 function getFormattedString(){
-  var toFormat = "Hi! I'm {name}.\n"+
-                  "Currently I'm version {version} but, my creators will update me soon!\n" +
+  var toFormat = `Hi! I'm ${packageInfo.name}.\n`+
+                  `Currently I'm version ${packageInfo.version} but, my creators will update me soon!\n` +
                   "My creators:\n";
 
-  toFormat += "\t{author_name} ({author_email})\n".format({author_name: packageInfo.author.name, author_email: packageInfo.author.email});
+  toFormat += `\t${packageInfo.author.name} (${packageInfo.author.email})\n`;
 
   for(var i = 0; i<packageInfo.contributors.length; i++){
       var c = packageInfo.contributors[i];
-      toFormat += "\t{name} ({email})\n".format({name: c.name, email: c.email});
+      toFormat += `\t${c.name} (${c.email})\n`;
   }
-  
-  return toFormat.format({name: packageInfo.name, version: packageInfo.version});
+
+  return toFormat;
 }
 
 var whoAmICommand = {
