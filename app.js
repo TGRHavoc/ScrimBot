@@ -1,4 +1,4 @@
-﻿var commands = { },
+var commands = { },
     config = require("./config"),
     Discord = require("discord.js");
 
@@ -45,6 +45,76 @@ bot.on("disconnected", function () {
     process.exit(1);//Exit with error
 });
 
+
+function sendPagedHelp(bot, msg, arguments){
+	var args = arguments.split(" ");
+	var pageToShow = 1;
+	if (args[0]){ //They have supplied a page no.
+		if (isNaN(args[0])){
+			//Not given a number
+			bot.sendMessage(msg.channel, "Sorry, '" + args[0] + "' isn't a number!");
+			return;
+		}else{
+			pageToShow = parseInt(args[0]);
+		}
+	}
+
+	var maxPagesNo = Math.floor( ( (Object.size(commands) - 1) / config.help.messages_per_page) +1 );
+		start = (pageToShow - 1) * config.help.messages_per_page,
+		end = start + config.help.messages_per_page;
+
+	if (!(pageToShow > 0 && pageToShow <= maxPagesNo)){
+		bot.sendMessage(msg.channel, "Sorry that page doesn't exist!");
+		return;
+	}
+
+	var title = `**Available commands ( page _${pageToShow}_ of _${maxPagesNo}_ ):**`;
+	bot.sendMessage(msg.channel, title, function () {
+		for (cmd in commands) {
+			if (commands[cmd].i >= start && commands[cmd].i < end){
+				var info = `**${cmd}**`;
+
+				var usage = commands[cmd].usage;
+				if (usage && usage != "")
+					info += ` *${usage}* >> `;
+				else
+					info += " >> ";
+
+				var description = commands[cmd].description;
+				if (description && description != "")
+					info += `***${description}***`;
+
+				bot.sendMessage(msg.channel, info);
+			}
+
+		}
+	});
+}
+
+function sendHelpDm(bot, msg){
+	var title = `Available commands (${Object.size(commands)})`;
+	bot.sendMessage(msg.author, title, function(){
+		var dm = "";
+		for(cmd in commands){
+			var info = `**${cmd}**`;
+
+			var usage = commands[cmd].usage;
+			if(usage && usage != "")
+				info += ` *${usage}* >> `;
+			else
+				info += " >> "
+			var desc = commands[cmd].description;
+			if(desc && desc != "")
+				info += `***${desc}***.`;
+
+			dm += info +"\n";
+		}
+		bot.sendMessage(msg.author, dm);
+
+		bot.sendMessage(msg, "I have sent my commands to you via DM");
+	});
+}
+
 bot.on("message", function (msg) {
     if (msg.author.id != bot.user.id && (msg.content[0] === '!' || msg.content[0] === '/' || msg.content.indexOf(bot.user.mention()) == 0)) { //If it's not the bot speaking, and message starts with ! or @ScrimBot
         console.log("Treating message from " + msg.author + " as command");
@@ -64,45 +134,11 @@ bot.on("message", function (msg) {
         cmdText = cmdText.toLowerCase();
         var cmd = commands[cmdText];
         if (cmdText === "help") {
-			var args = arguments.split(" ");
-			var pageToShow = 1;
-			if (args[0]){ //They have supplied a page no.
-				if (isNaN(args[0])){
-					//Not given a number
-					bot.sendMessage(msg.channel, "Sorry, '" + args[0] + "' isn't a number!");
-					return;
-				}else{
-					pageToShow = parseInt(args[0]);
-				}
+			if(!config.help.send_dm){
+				sendPagedHelp(bot, msg, arguments);
+			}else{
+				sendHelpDm(bot, msg);
 			}
-
-			var maxPagesNo = Math.floor( ( (Object.size(commands) - 1) / config.help.messages_per_page) +1 );
-				start = (pageToShow - 1) * config.help.messages_per_page,
-				end = start + config.help.messages_per_page;
-
-			if (!(pageToShow >= start && pageToShow < end)){
-				bot.sendMessage(msg.channel, "Sorry that page doesn't exist!");
-				return;
-			}
-
-			var title = `**Available commands ( page _${pageToShow}_ of _${maxPagesNo}_ ):**`;
-            bot.sendMessage(msg.channel, title, function () {
-                for (cmd in commands) {
-
-					if (commands[cmd].i >= start && commands[cmd].i < end){
-						var info = "!" + cmd;
-	                    var usage = commands[cmd].usage;
-	                    if (usage && usage != "")
-	                        info += " " + usage;
-
-	                    var description = commands[cmd].description;
-	                    if (description && description != "")
-	                        info += "\n\t" + description;
-	                    bot.sendMessage(msg.channel, info);
-					}
-
-                }
-            });
             return;
         } else if(cmd) {
             if (cmdText in commands) {
