@@ -4,7 +4,7 @@ var kysCommand = {
   usage: "",
   description: "Quick and easy abbreviation for kill youself.",
   process: function (bot, msg, arguments) {
-    if(usrUtils.isAdmin( bot.servers[0], msg.author )){
+    if(usrUtils.isAdmin( msg.channel.server, msg.author )){
       bot.sendMessage(msg.channel, ":frowning: kys :skull:", function(err, channel) { if(err) console.log(err); });
       bot.logout(function(err, channel) { if(err) console.log(err); });
       return;

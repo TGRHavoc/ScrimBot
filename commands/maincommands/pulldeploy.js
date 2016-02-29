@@ -4,7 +4,7 @@ var pullDeployCommand = {
     description: "Fetch code from github and stop the bot",
     process: function (bot, msg, args) {
 
-      if(!( userUtil.isAdmin( bot.servers[0], msg.author ) )){
+      if(!( userUtil.isAdmin( msg.channel.server, msg.author ) )){
         bot.sendMessage(msg.channel, "You cannot control me!");
         return;
       }

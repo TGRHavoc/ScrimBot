@@ -1,7 +1,7 @@
 var Role = {};
 
 
-Role.getRoleFromName( server, roleName ){
+Role.getRoleFromName = function ( server, roleName ){
 	if ( Role.roleExists(server, roleName) ){
 		var allRoles = server.roles;
 		for(var i = 0; i<allRoles.length; i++){
@@ -14,7 +14,7 @@ Role.getRoleFromName( server, roleName ){
 	}
 };
 
-Role.roleExists( server, roleName ){
+Role.roleExists = function( server, roleName ){
 	var users = server.membersWithRole(roleName);
 
 	if(users.length > 0){

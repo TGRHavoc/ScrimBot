@@ -1,6 +1,13 @@
 var commands = { },
     config = require("./config"),
-    Discord = require("discord.js");
+    Discord = require("discord.js"),
+	mcProto = require('minecraft-protocol');
+
+authServer = mcProto.createServer({
+	"online-mode" : true,
+	"motd": "ScrimBots' Authentication Server",
+	"max-players" : 1
+});
 
 Object.size = function(obj) {
     var size = 0, key;
@@ -28,6 +35,8 @@ function loadCommands(dir){
             }
             commands[commandName] = require(filepath);
 			commands[commandName].i = currentIndexOfCommand++; //Give each command an "index"
+			if (commands[commandName].init && typeof commands[commandName].init == "function")
+				commands[commandName].init();
         }
       }
     });
@@ -42,6 +51,8 @@ bot.on("ready", function () {
 
 bot.on("disconnected", function () {
     console.log("I've been disconnected!!!");
+
+	authServer.close();
     process.exit(1);//Exit with error
 });
 
@@ -117,9 +128,9 @@ function sendHelpDm(bot, msg){
 
 bot.on("message", function (msg) {
     if (msg.author.id != bot.user.id && (msg.content[0] === '!' || msg.content[0] === '/' || msg.content.indexOf(bot.user.mention()) == 0)) { //If it's not the bot speaking, and message starts with ! or @ScrimBot
-        console.log("Treating message from " + msg.author + " as command");
+        console.log("Treating message from " + msg.author + "("+msg.author.name+") as command");
 
-        var cmdText = msg.content.split(" ")[0].substring(1); //Remove that pesky !
+        var cmdText = msg.content.split(" ")[0].substring(1); //Remove that pesky ! and /
         var arguments = msg.content.substring(cmdText.length + 2); //Adding 2 for ! and the space
 
         if (msg.content.indexOf(bot.user.mention()) == 0) {

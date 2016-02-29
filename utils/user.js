@@ -1,4 +1,5 @@
-var User = {};
+var User = {},
+	Roles = require('./roles');
 
 User.isAdmin = function(server, user){
   var userRoles = server.rolesOfUser(user);
@@ -8,8 +9,19 @@ User.isAdmin = function(server, user){
     if (role.name == "Admins")
       isAdmin = true;
   }
-  
+
   return isAdmin;
+};
+
+User.hasRole = function(server, user, roleName){
+	var userRoles = server.rolesOfUser(user);
+	for(var i=0; i<userRoles.length; i++){
+		var r = userRoles[i];
+		if(r.name == roleName)
+			return true;
+	}
+
+	return false;
 };
 
 

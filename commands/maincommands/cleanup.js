@@ -4,7 +4,7 @@ var cleanCommand = {
   description: "Clean up the channel's chat",
   process: function(bot, msg, args){
 
-    if(!( util.isAdmin( bot.servers[0], msg.author ) )){
+    if(!( util.isAdmin( msg.channel.server, msg.author ) )){
       bot.sendMessage(msg.channel, "You cannot control me!");
       return;
     }
