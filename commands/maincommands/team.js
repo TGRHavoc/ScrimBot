@@ -34,8 +34,9 @@ var teamCommand = {
 				commandUsage += ` *[${command.usage[arg]}]*`
 			var desc = command.description;
 			if (desc && desc != "") //***${desc}***.
-				commandUsage += ` >> ***${desc}***`;
-
+				commandUsage += `\n\t***${desc}***`;
+			else
+				commandUsage += "\n\t***No description for this command found***";
 			bot.sendMessage(msg, commandUsage);
 			return;
 		}

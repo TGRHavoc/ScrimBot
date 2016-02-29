@@ -87,14 +87,13 @@ function sendPagedHelp(bot, msg, arguments){
 
 				var usage = commands[cmd].usage;
 				if (usage && usage != "")
-					info += ` *${usage}* >> `;
-				else
-					info += " >> ";
+					info += ` *${usage}*`;
 
 				var description = commands[cmd].description;
 				if (description && description != "")
-					info += `***${description}***`;
-
+					info += `\n\t***${description}***`;
+				else
+					info += "\n\t***No description for this command found***";
 				bot.sendMessage(msg.channel, info);
 			}
 
@@ -111,13 +110,13 @@ function sendHelpDm(bot, msg){
 
 			var usage = commands[cmd].usage;
 			if(usage && usage != "")
-				info += ` *${usage}* >> `;
-			else
-				info += " >> "
+				info += ` *${usage}*`;
+
 			var desc = commands[cmd].description;
 			if(desc && desc != "")
 				info += `\n\t***${desc}***.`;
-
+			else
+				info += "\n\t***No description for this command found***";
 			dm += info +"\n";
 		}
 		bot.sendMessage(msg.author, dm);
