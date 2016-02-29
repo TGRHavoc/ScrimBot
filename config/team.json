@@ -1,5 +1,5 @@
 {
 	"banned_teams" : [
-		"Admins", "Authenticated", "admin", "admins", "Admin", "authenticated"
+		"Admins", "Authenticated", "admin", "admins", "Admin", "authenticated", "Dev", "Developer", "Map Maker", "Builder", "Mods", "Mod", "Helper", "Help", "Banned", "VIP", "Donator", "MVP", "Winner", "Finalist", "Semi-Finalist", "Official", "Senior", "Ref", "Refs", "Referee", "Cardinal", "Staff", "Event"
 	]
 }
