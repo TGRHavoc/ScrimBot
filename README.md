@@ -17,6 +17,10 @@ Commands are listed below. And follow the format of `!<base> <command> <args>`. 
 | myid | Responds with the ID of the user who executed the command |
 | whois | Base for whois commands |
 | pullanddeploy | Bot will perform a git pull master and restart with the new code |
+| kys | Logs the bot out of the server |
+| cleanup | Removes all past messages in a channel |
+| echo | Will print out given arguments |
+| auth | Allows the user to authenticate their MC account |
 
 ### Teams
 Base: team
