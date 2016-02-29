@@ -105,7 +105,7 @@ function sendHelpDm(bot, msg){
 				info += " >> "
 			var desc = commands[cmd].description;
 			if(desc && desc != "")
-				info += `***${desc}***.`;
+				info += `\n\t***${desc}***.`;
 
 			dm += info +"\n";
 		}
