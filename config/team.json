@@ -1,5 +1,7 @@
 {
 	"banned_teams" : [
-		"Admins", "Authenticated", "admin", "admins", "Admin", "authenticated", "Dev", "Developer", "Map Maker", "Builder", "Mods", "Mod", "Helper", "Help", "Banned", "VIP", "Donator", "MVP", "Winner", "Finalist", "Semi-Finalist", "Official", "Senior", "Ref", "Refs", "Referee", "Cardinal", "Staff", "Event"
+		"admin", "admins", "authenticated", "dev", "developer",
+		"mapmaker", "builder", "mods", "mod", "helper", "help", "banned", "vip", "donator", "mvp", "winner",
+		"finalist", "semi-finalist", "official", "senior", "ref", "refs", "referee", "cardinal", "staff", "event"
 	]
 }

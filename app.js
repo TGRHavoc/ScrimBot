@@ -47,13 +47,15 @@ var bot = new Discord.Client();
 bot.on("ready", function () {
     loadCommands("./commands/");
     console.log("\nReady to serve! Currently " + bot.channels.length + " channels!");
+
+	//TODO: Asynchrony load our files with discordId -> UUID and UUID -> Data
 });
 
 bot.on("disconnected", function () {
     console.log("I've been disconnected!!!");
 
 	authServer.close();
-    process.exit(1);//Exit with error
+	//TODO: (A)synchrony write our data to files
 });
 
 
@@ -91,9 +93,9 @@ function sendPagedHelp(bot, msg, arguments){
 
 				var description = commands[cmd].description;
 				if (description && description != "")
-					info += `\n\t***${description}***`;
+					info += `\n\t${description}`;
 				else
-					info += "\n\t***No description for this command found***";
+					info += "\n\tNo description for this command found.";
 				bot.sendMessage(msg.channel, info);
 			}
 
@@ -114,9 +116,9 @@ function sendHelpDm(bot, msg){
 
 			var desc = commands[cmd].description;
 			if(desc && desc != "")
-				info += `\n\t***${desc}***.`;
+				info += `\n\t${desc}.`;
 			else
-				info += "\n\t***No description for this command found***";
+				info += "\n\tNo description for this command found.";
 			dm += info +"\n";
 		}
 		bot.sendMessage(msg.author, dm);
