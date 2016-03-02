@@ -25,10 +25,7 @@ var playCommand = {
 function playUrl(bot, args){
 	var url = `http://www.youtube.com/watch?v=${args}`;
 	console.log("Playing: " + url);
-
-	ytdl.getInfo(url, function(err, info){
-		console.log(info);
-	});
+	//TODO: Get vid info and show etc..
 
 	if(bot.voiceConnection){
 		bot.voiceConnection.stopPlaying();
