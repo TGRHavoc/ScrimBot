@@ -8,7 +8,7 @@ var joinCommand = {
 	},
 	process: function(bot, msg, args){
 		args = args.split(" ");
-
+		var found = false;
 		if (args.length > 1){
 			bot.sendMessage(msg, "You only need to specify the channels' name.");
 			return;
@@ -19,17 +19,24 @@ var joinCommand = {
 
 		for(var i = 0; i<msg.channel.server.channels.length; i++){
 			var channel = msg.channel.server.channels[i];
-
-			if (channel.type == "voice" && channel.name == args[0]){
-				bot.joinVoiceChannel(channel, function(err, call) {
-					if(!err)
-						bot.sendMessage(msg, `I have joined the voice channel ${channel.name}`);
-				});
-			}else{
-				bot.sendMessage(msg, `I cannot join '${args[0]}'. It is either a text channel or it doesn't exist.`);
-				return;
+			if (channel.name == args[0]){
+				if (channel.type == "voice"){
+					bot.joinVoiceChannel(channel, function(err, call) {
+						if(!err){
+							bot.sendMessage(msg, `I have joined the voice channel ${channel.name}`);
+							found = true;
+						}
+					});
+				}else{
+					bot.sendMessage(msg, `Sorry, the channel "${args[0]}" isn't a voice channel.`);
+					found = true;//We found but, it's not voice
+				}
 			}
 		}
+
+		if (!found)
+			bot.sendMessage(msg, `Cannot find channel "${args[0]}".`);
+
 	}
 }
 
