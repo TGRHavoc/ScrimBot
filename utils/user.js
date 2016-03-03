@@ -6,7 +6,7 @@ User.isAdmin = function(server, user){
   var isAdmin = false;
   for(var i=0; i<userRoles.length; i++){
     var role = userRoles[i];
-    if (role.name == "Admins")
+    if (role.name.toLowerCase() == "admins" || role.name.toLowerCase() == "admin" )
       isAdmin = true;
   }
 

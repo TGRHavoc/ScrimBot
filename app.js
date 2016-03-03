@@ -104,12 +104,15 @@ function sendPagedHelp(bot, msg, arguments){
 }
 
 function sendHelpDm(bot, msg){
-	var title = `Available commands (${Object.size(commands)})`;
+	var title = `Available commands`;
 	bot.sendMessage(msg.author, title, function(){
 		var dm = "";
 		for(cmd in commands){
 			var info = `**${cmd}**`;
 
+			if(commands[cmd].permission && typeof commands[cmd].permission == "function")
+				if (!commands[cmd].permission(msg))
+					continue; //They don't have permission for this command
 			var usage = commands[cmd].usage;
 			if(usage && usage != "")
 				info += ` *${usage}*`;
@@ -155,7 +158,14 @@ bot.on("message", function (msg) {
         } else if(cmd) {
             if (cmdText in commands) {
                 try {
-                    commands[cmdText].process(bot, msg, arguments);
+					if(commands[cmdText].permission && typeof commands[cmdText].permission == "function"){
+						if (!commands[cmdText].permission(msg)){
+							bot.sendMessage(msg, "Sorry, you don't have permission to run this command.");
+							return; //They don't have permission for this command?
+						}
+						//Just run the command anyways
+	                    commands[cmdText].process(bot, msg, arguments);
+					}
                 } catch (e) {
                     bot.sendMessage(msg.channel, "Error occured when executing command '" + cmdText + "': " + e.stack);
                 }

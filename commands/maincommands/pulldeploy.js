@@ -2,12 +2,15 @@ var userUtil = require("../../utils/user.js");
 
 var pullDeployCommand = {
     description: "Fetch code from github and stop the bot",
+	permission: function(msg){
+		return userUtil.isAdmin(msg.channel.server, msg.author);
+	},
     process: function (bot, msg, args) {
 
-      if(!( userUtil.isAdmin( msg.channel.server, msg.author ) )){
-        bot.sendMessage(msg.channel, "You cannot control me!");
-        return;
-      }
+    //   if(!( userUtil.isAdmin( msg.channel.server, msg.author ) )){
+    //     bot.sendMessage(msg.channel, "You cannot control me!");
+    //     return;
+    //   }
 
       bot.sendMessage(msg.channel,"Updating...",function(error,sentMsg){
             console.log("updating...");
