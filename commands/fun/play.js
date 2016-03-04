@@ -6,7 +6,7 @@ var playCommand = {
 	permission: function(msg){
 		var user = msg.author;
 		var server = msg.channel.server;
-		return false;
+		return true;
 	},
 	process: function(bot, msg, args){
 		args = args.split(" ");

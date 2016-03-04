@@ -23,7 +23,7 @@ var joinCommand = {
 				if (channel.type == "voice"){
 					bot.joinVoiceChannel(channel, function(err, call) {
 						if(!err){
-							bot.sendMessage(msg, `I have joined the voice channel ${channel.name}`);
+							bot.sendMessage(msg, `I have joined the voice channel ${args[0]}.`);
 							found = true;
 						}
 					});
@@ -33,10 +33,6 @@ var joinCommand = {
 				}
 			}
 		}
-
-		if (!found)
-			bot.sendMessage(msg, `Cannot find channel "${args[0]}".`);
-
 	}
 }
 
