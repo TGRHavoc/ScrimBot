@@ -32,16 +32,13 @@ var authCommand = {
 					console.log("Adding to arrays..");
 					Assosiations.push({"discordId": msg.author.id, "uuid": uuid});
 					McData.push({"uuid": uuid, "name": userData.name});
-					console.log("Added the data: " + JSON.stringify(McData));
 
-					if (!(Assosiations.length <= 1 && Data.length <= 1)){
-						console.log("Sorting arrays: " + JSON.stringify(Assosiations));
-						var ta = sort(Assosiations, "discordId");
-						var td = sort(McData, "uuid");
-						console.log("Sorted arrays: " + JSON.stringify(Assosiations));
-					}
+					console.log("Sorting arrays");
+					Assosiations = sort(Assosiations, "discordId");
+					McData = sort(McData, "uuid");
+					console.log("Arrays sorted.");
 
-					bot.addMemberToRole(msg.author, Roles.getRoleFromName("Authenticated"));
+					bot.addMemberToRole(msg.author, Roles.getRoleFromName(msg.channel.server, "Authenticated"));
 
 					bot.sendMessage(msg, `${msg.author.mention()} Thank you for authenticating!`);
 					return;

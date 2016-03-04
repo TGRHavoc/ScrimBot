@@ -2,6 +2,8 @@ var Role = {};
 
 
 Role.getRoleFromName = function ( server, roleName ){
+	console.log("server: "+ server);
+
 	if ( Role.roleExists(server, roleName) ){
 		var allRoles = server.roles;
 		for(var i = 0; i<allRoles.length; i++){
@@ -15,10 +17,10 @@ Role.getRoleFromName = function ( server, roleName ){
 };
 
 Role.roleExists = function( server, roleName ){
-	var users = server.usersWithRole(roleName);
-
-	if(users.length > 0){
-		return true; //Probably exists
+	//var users = server.usersWithRole(roleName);
+	for(var i =0; i< server.roles.length; i++){
+		if (server.roles[i].name == roleName)
+			return true;
 	}
 
 	return false

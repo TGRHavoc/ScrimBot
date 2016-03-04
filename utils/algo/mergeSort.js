@@ -10,7 +10,7 @@ function merge(left, right, arr, sortBy){
 }
 
 function mSort(sortBy, arr, tmp, len){
-	if (len == 1) return;
+	if (len == 1) return arr; //Return the original array. it's already "sorted"
 
 	var mid = Math.floor(len/2), tmp_l = tmp.slice(0, mid),
 		tmp_r = tmp.slice(mid);
