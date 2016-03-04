@@ -15,7 +15,7 @@ Role.getRoleFromName = function ( server, roleName ){
 };
 
 Role.roleExists = function( server, roleName ){
-	var users = server.membersWithRole(roleName);
+	var users = server.usersWithRole(roleName);
 
 	if(users.length > 0){
 		return true; //Probably exists
