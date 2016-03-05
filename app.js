@@ -153,31 +153,29 @@ function sendPagedHelp(bot, msg, arguments){
 	});
 }
 
-function sendHelpDm(bot, msg){
-	var title = `Available commands`;
-	bot.sendMessage(msg.author, title, function(){
-		var dm = "";
-		for(cmd in commands){
-			var info = `**${cmd}**`;
+function sendHelpDm(bot, msg) {
+	var title = "**Available commands** \n";
+	var dm = title;
+	for(cmd in commands){
+		var info = `**${cmd}**`;
 
-			if(commands[cmd].permission && typeof commands[cmd].permission == "function")
-				if (!commands[cmd].permission(msg))
-					continue; //They don't have permission for this command
-			var usage = commands[cmd].usage;
-			if(usage && usage != "")
-				info += ` *${usage}*`;
+		if(commands[cmd].permission && typeof commands[cmd].permission == "function")
+			if (!commands[cmd].permission(msg))
+				continue; //They don't have permission for this command
+		var usage = commands[cmd].usage;
+		if(usage && usage != "")
+			info += ` *${usage}*`;
 
-			var desc = commands[cmd].description;
-			if(desc && desc != "")
-				info += `\n\t${desc}.`;
-			else
-				info += "\n\tNo description for this command found.";
-			dm += info +"\n";
-		}
-		bot.sendMessage(msg.author, dm);
+		var desc = commands[cmd].description;
+		if(desc && desc != "")
+			info += `\n\t${desc}.`;
+		else
+			info += "\n\tNo description for this command found.";
+		dm += info +"\n";
+	}
+	bot.sendMessage(msg.author, dm);
 
-		bot.sendMessage(msg, "I have sent my commands to you via DM");
-	});
+	bot.sendMessage(msg, "I have sent my commands to you via DM");
 }
 
 bot.on("message", function (msg) {

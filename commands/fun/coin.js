@@ -12,6 +12,10 @@ var coinCommand = {
 				timesToFlip = parseInt(args[0]);
 			}
 		}
+		if (timesToFlip > 9000) {
+			bot.sendMessage(msg.channel, "Sorry, that number is over 9000!");
+			return;
+		}
 		var face;
 		var tails =0, heads = 0;
 		for(var i=0; i<timesToFlip; i++){
