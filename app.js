@@ -220,15 +220,13 @@ bot.on("message", function (msg) {
                 } catch (e) {
                     bot.sendMessage(msg, "Error occured when executing command '" + cmdText + "': " + e.stack);
                 }
-            } else {
-                bot.sendMessage(msg, "Sorry, that command don't exist");
             }
         }else{
           //Not supplied a command
           if(msg.author == bot.user){
               return;
           }
-          bot.sendMessage(msg.channel, "Chat to me?");
+          bot.sendMessage(msg.channel, "Sorry, that command doesn't exist");
         }
     }
 });
