@@ -35,7 +35,7 @@ var teamArguments = {
 		process: function(bot, msg, args){ //Args is an array with our arguments.
 			//E.g. args[0] = team name
 			var teamName = args[0];
-			if (config.team.banned_teams.indexOf(teamName.toLowerCase()) != -1){ //If it's in our banned names array
+			if (config.team.banned_teams.indexOf(teamName.toLowerCase()) != -1 || config.team.banned_teams.indexOf(teamName.toLowerCase().slice(0,-1)) != -1){ //If it's in our banned names array
 				bot.sendMessage(msg, "That team name isn't allowed");
 				return;
 			}
