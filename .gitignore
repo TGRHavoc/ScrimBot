@@ -87,6 +87,10 @@ $RECYCLE.BIN/
 *.suo
 .vs/ScrimSpace Discord bot/v14/.suo
 *.suo
-config/auth.json
+
+auth.json
 
 destination
+
+lib/config/auth.json
+lib/config/auth.json
