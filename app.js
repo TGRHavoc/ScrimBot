@@ -7,7 +7,8 @@ var commands = { },
 authServer = mcProto.createServer({
 	"online-mode" : true,
 	"motd": "ScrimBots' Authentication Server",
-	"max-players" : 1
+	"max-players" : 1,
+    "port": config.auth_port || 25565
 });
 
 Assosiations = []; //DiscordID -> UUID
