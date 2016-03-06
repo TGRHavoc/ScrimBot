@@ -1,8 +1,8 @@
 var commands = { },
-    config = require("./config"),
+    config = require("./lib/config"),
     Discord = require("discord.js"),
 	mcProto = require('minecraft-protocol'),
-	fileUtils = require("./utils/fileUtils");
+	fileUtils = require("./lib/utils/fileUtils");
 
 authServer = mcProto.createServer({
 	"online-mode" : true,
@@ -48,12 +48,12 @@ function loadCommands(dir){
 var bot = new Discord.Client();
 
 bot.on("ready", function () {
-    loadCommands("./commands/");
+    loadCommands("./lib/commands/");
     console.log("\nReady to serve! Currently " + bot.channels.length + " channels!");
 
 	//TODO: Asynchrony load our files with discordId -> UUID and UUID -> Data
-	if (fileUtils.fileExists("data/assosiations.json")){
-		fileUtils.readFile("data/assosiations.json", function(err, data){
+	if (fileUtils.fileExists("lib/data/assosiations.json")){
+		fileUtils.readFile("lib/data/assosiations.json", function(err, data){
 			if(err){
 				console.log("Error reading: " + err.message);
 				return;
@@ -62,8 +62,8 @@ bot.on("ready", function () {
 			Assosiations = data;
 		});
 	}
-	if (fileUtils.fileExists("data/data.json")){
-		fileUtils.readFile("data/data.json", function(err, data){
+	if (fileUtils.fileExists("lib/data/data.json")){
+		fileUtils.readFile("lib/data/data.json", function(err, data){
 			if(err){
 				console.log("Error reading: " + err.message);
 				return;
@@ -85,20 +85,20 @@ function exitHandler(options, err) {
     if (options.exit){
 		console.log("Saving data to files...");
 
-		if (!fileUtils.fileExists("data/assosiations.json")){
-			if (!fileUtils.dirExists("data"))
-				fileUtils.makeDir("data");
-			fileUtils.createFile("data/assosiations.json");
+		if (!fileUtils.fileExists("lib/data/assosiations.json")){
+			if (!fileUtils.dirExists("lib/data"))
+				fileUtils.makeDir("lib/data");
+			fileUtils.createFile("lib/data/assosiations.json");
 		}
 
-		if (!fileUtils.fileExists("data/data.json")){
-			if (!fileUtils.dirExists("data"))
-				fileUtils.makeDir("data");
-			fileUtils.createFile("data/data.json");
+		if (!fileUtils.fileExists("lib/data/data.json")){
+			if (!fileUtils.dirExists("lib/data"))
+				fileUtils.makeDir("lib/data");
+			fileUtils.createFile("lib/data/data.json");
 		}
 
-		fileUtils.writeFileSync("data/assosiations.json", Assosiations, {options: {spaces: 4}});
-		fileUtils.writeFileSync("data/data.json", McData, {options: {spaces: 4}});
+		fileUtils.writeFileSync("lib/data/assosiations.json", Assosiations, {options: {spaces: 4}});
+		fileUtils.writeFileSync("lib/data/data.json", McData, {options: {spaces: 4}});
 		console.log("Written all data to files... Now exiting.");
 
 		process.exit();
@@ -131,19 +131,19 @@ function sendPagedHelp(bot, msg, arguments){
 		return;
 	}
 
-	var title = `**Available commands ( page _${pageToShow}_ of _${maxPagesNo}_ ):**`;
+	var title = '**Available commands ( page _'+pageToShow+'_ of _'+maxPagesNo+'_ ):**';
 	bot.sendMessage(msg.channel, title, function () {
 		for (cmd in commands) {
 			if (commands[cmd].i >= start && commands[cmd].i < end){
-				var info = `**${cmd}**`;
+				var info = '**'+cmd+'**';
 
 				var usage = commands[cmd].usage;
 				if (usage && usage != "")
-					info += ` *${usage}*`;
+					info += ' *'+usage+'*';
 
 				var description = commands[cmd].description;
 				if (description && description != "")
-					info += `\n\t${description}`;
+					info += '\n\t'+description;
 				else
 					info += "\n\tNo description for this command found.";
 				bot.sendMessage(msg.channel, info);
@@ -157,18 +157,18 @@ function sendHelpDm(bot, msg) {
 	var title = "**Available commands** \n";
 	var dm = title;
 	for(cmd in commands){
-		var info = `**${cmd}**`;
+		var info = '**'+cmd+'**';
 
 		if(commands[cmd].permission && typeof commands[cmd].permission == "function")
 			if (!commands[cmd].permission(msg))
 				continue; //They don't have permission for this command
 		var usage = commands[cmd].usage;
 		if(usage && usage != "")
-			info += ` *${usage}*`;
+			info += ' *'+usage+'*';
 
 		var desc = commands[cmd].description;
 		if(desc && desc != "")
-			info += `\n\t${desc}.`;
+			info += '\n\t'+desc;
 		else
 			info += "\n\tNo description for this command found.";
 		dm += info +"\n";
