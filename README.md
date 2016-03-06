@@ -1,5 +1,7 @@
 ﻿# ScrimBot
 
+[![Build Status](https://travis-ci.com/TGRHavoc/ScrimBot.svg?token=wyuYpSCuzVuHZspeAGmc&branch=master)](https://travis-ci.com/TGRHavoc/ScrimBot)
+
 ScrimBot is a Bot created for ScrimSpaces' Discord channel to help automate mundane tasks.
 
 # Features
@@ -35,7 +37,7 @@ Base: team
 # Installation
 
 ### Requirements
-You will need to have [Node.js](https://nodejs.org/en/) installed and 
+You will need to have [Node.js](https://nodejs.org/en/) installed and
 [Node Package Manager](https://docs.npmjs.com/getting-started/installing-node) (npm)
 
 ### Installing
