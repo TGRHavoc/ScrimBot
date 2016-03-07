@@ -94,3 +94,4 @@ destination
 
 lib/config/auth.json
 lib/config/auth.json
+*.key

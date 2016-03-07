@@ -61,6 +61,7 @@ bot.on("ready", function () {
 			}
 
 			Assosiations = data;
+			console.log("Assosiations set");
 		});
 	}
 	if (fileUtils.fileExists("lib/data/data.json")){
@@ -70,8 +71,12 @@ bot.on("ready", function () {
 				return;
 			}
 			McData = data;
+			console.log("McData set!");
 		});
 	}
+
+	//Load out rest api server
+	require("./lib/utils/express")();
 });
 
 bot.on("disconnected", function () {
