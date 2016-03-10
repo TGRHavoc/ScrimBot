@@ -4,6 +4,10 @@ var commands = { },
 	mcProto = require('minecraft-protocol'),
 	fileUtils = require("./lib/utils/fileUtils");
 
+
+var bot = new Discord.Client();
+
+//"Global" variables
 authServer = mcProto.createServer({
 	"online-mode" : true,
 	"motd": "ScrimBots' Authentication Server",
@@ -45,46 +49,6 @@ function loadCommands(dir){
       }
     });
 };
-
-var bot = new Discord.Client();
-
-bot.on("ready", function () {
-    loadCommands("./lib/commands/");
-    console.log("\nReady to serve! Currently " + bot.channels.length + " channels!");
-
-	//TODO: Asynchrony load our files with discordId -> UUID and UUID -> Data
-	if (fileUtils.fileExists("lib/data/assosiations.json")){
-		fileUtils.readFile("lib/data/assosiations.json", function(err, data){
-			if(err){
-				console.log("Error reading: " + err.message);
-				return;
-			}
-
-			Assosiations = data;
-			console.log("Assosiations set");
-		});
-	}
-	if (fileUtils.fileExists("lib/data/data.json")){
-		fileUtils.readFile("lib/data/data.json", function(err, data){
-			if(err){
-				console.log("Error reading: " + err.message);
-				return;
-			}
-			McData = data;
-			console.log("McData set!");
-		});
-	}
-
-	//Load out rest api server
-	require("./lib/utils/express")();
-});
-
-bot.on("disconnected", function () {
-    console.log("I've been disconnected!!!");
-
-	authServer.close();
-	exitHandler({exit: true}, null);
-});
 
 function exitHandler(options, err) {
     if (err) console.log("Not clean" +err.stack);
@@ -183,6 +147,47 @@ function sendHelpDm(bot, msg) {
 
 	bot.sendMessage(msg, "I have sent my commands to you via DM");
 }
+
+// Bot events
+bot.on("ready", function () {
+    loadCommands("./lib/commands/");
+    console.log("\nReady to serve! Currently " + bot.channels.length + " channels!");
+
+	require("./lib/utils/git")();
+
+	//TODO: Asynchrony load our files with discordId -> UUID and UUID -> Data
+	if (fileUtils.fileExists("lib/data/assosiations.json")){
+		fileUtils.readFile("lib/data/assosiations.json", function(err, data){
+			if(err){
+				console.log("Error reading: " + err.message);
+				return;
+			}
+
+			Assosiations = data;
+			console.log("Assosiations set");
+		});
+	}
+	if (fileUtils.fileExists("lib/data/data.json")){
+		fileUtils.readFile("lib/data/data.json", function(err, data){
+			if(err){
+				console.log("Error reading: " + err.message);
+				return;
+			}
+			McData = data;
+			console.log("McData set!");
+		});
+	}
+
+	//Load out rest api server
+	require("./lib/utils/express")();
+});
+
+bot.on("disconnected", function () {
+    console.log("I've been disconnected!!!");
+
+	authServer.close();
+	exitHandler({exit: true}, null);
+});
 
 bot.on("message", function (msg) {
     if (msg.author.id != bot.user.id && (msg.content[0] === '!' || msg.content[0] === '/' || msg.content.indexOf(bot.user.mention()) == 0)) { //If it's not the bot speaking, and message starts with ! or @ScrimBot
