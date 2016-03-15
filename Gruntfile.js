@@ -10,7 +10,7 @@ module.exports = function(grunt){
 						        ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
 	    	},
 			minify: {
-				files: grunt.file.expandMapping(['lib/**/*.js', 'app.js'], 'destination/', {rename: function(destBase, destPath) { return destBase+destPath.replace('.js', '.min.js'); }
+				files: grunt.file.expandMapping(['lib/**/*.js', 'lib/app.js'], 'destination/', {rename: function(destBase, destPath) { return destBase+destPath.replace('.js', '.min.js').replace("lib/", ""); }
 				})
 			}
 	  	}
