@@ -1,4 +1,6 @@
 @echo off
+REM This file will set up the environment to allow you to run "npm install" without getting errors
+REM Note: This requires any version of Visual Studio 2015 installed
 
 REM Set up the environment for C++ support (for sound)
 @call :GetVSCommonToolsDir
@@ -170,7 +172,7 @@ CLS
 ECHO Good to go!
 ECHO Make sure to run npm insall before running the bot if you have just updated
 
-CMD /Q /K 
+CMD /Q /K
 
 :error
 ECHO.
