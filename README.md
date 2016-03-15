@@ -5,7 +5,7 @@
 ScrimBot is a Bot created for ScrimSpaces' Discord channel to help automate mundane tasks.
 
 # Features
-If you want to learn more about specific features including what they do, please refer to the [Features](https://github.com/TGRHavoc/ScrimBot/wiki/Features) page on the [[Wiki|Features]].
+If you want to learn more about specific features including what they do, please refer to the [Features](https://github.com/TGRHavoc/ScrimBot/wiki/Features) page on the Wiki.
 
 * Here should be a list of features for the bot
 
