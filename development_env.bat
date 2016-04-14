@@ -1,6 +1,7 @@
 @echo off
 REM This file will set up the environment to allow you to run "npm install" without getting errors
 REM Note: This requires any version of Visual Studio 2015 installed
+REM This should only be used when compiling the C++ files (you want to run the REST API)
 
 REM Set up the environment for C++ support (for sound)
 @call :GetVSCommonToolsDir
