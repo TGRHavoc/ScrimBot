@@ -60,3 +60,4 @@ Before you send a pull request, please make sure you have read the following:
 
 
 *Author: Jordan Dalton (2016)*
+
