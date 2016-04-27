@@ -1,6 +1,6 @@
 {
 	  "name": "ScrimBot",
-	  "version": "0.5.3",
+	  "version": "0.5.4",
 	  "description": "ScrimSpace Discord bot",
 	  "main": "lib/app.js",
 	  "author": {
