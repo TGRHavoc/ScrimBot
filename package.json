@@ -42,6 +42,7 @@
 		"ytdl-core": "^0.7.10",
 		"express": "^4.13.4",
 		"ursa": "^0.9.3",
-		"body-parser": "^1.15.0"
+		"body-parser": "^1.15.0",
+		"mongoose": "^4.4.13"
 	}
 }

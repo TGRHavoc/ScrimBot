@@ -1,0 +1,7 @@
+{
+	"host": "hades.space",
+	"port": 27017,
+	"database": "ScrimBot",
+	"user": "scrimbot",
+	"pwd": "password"
+}
